@@ -65,18 +65,19 @@ def find_text_on_screen(text: str) -> str:
 
 @mcp_server.tool()
 def set_volume(level: int) -> str:
-    """Set vol 0-100 (Windows)."""
+    """Set vol 0-100 (Windows via PowerShell)."""
     try:
-        from ctypes import cast, POINTER
-        from comtypes import CLSCTX_ALL
-        from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
-        devices = AudioUtilities.GetSpeakers()
-        interface = devices.Activate(IAudioEndpointVolume._iid_, CLSCTX_ALL, None)
-        volume = cast(interface, POINTER(IAudioEndpointVolume))
-        volume.SetMasterVolumeLevelScalar(level / 100, None)
-        return "OK"
-    except ImportError:
-        return "Need pycaw"
+        level = max(0, min(100, level))  # Clamp 0-100
+        ps_script = f"""
+[Windows.Media.Devices.MediaDevice, Windows.Media.Devices.MediaDevice, ContentType = WindowsRuntime] > $null
+[Windows.Media.Devices.MediaDevice]::GetDefaultAudioPlaybackDevice().Volume = {level / 100.0}
+"""
+        result = subprocess.run(
+            ["powershell", "-NoProfile", "-Command", ps_script],
+            capture_output=True,
+            text=True
+        )
+        return "OK" if result.returncode == 0 else f"Err: {result.stderr}"
     except Exception as e:
         return f"Err: {e}"
 
