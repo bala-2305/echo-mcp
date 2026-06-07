@@ -428,7 +428,6 @@ def list_network_interfaces() -> str:
         if ips: res.append(f"{intf}: {','.join(ips)}")
     return "\n".join(res)
 
-# ============== BROWSER AUTOMATION ==============
 
 @mcp_server.tool()
 def browser_open(headless: bool = False) -> str:
@@ -617,6 +616,10 @@ def browser_scroll(direction: str = "down", amount: int = 3) -> str:
     except Exception as e:
         return f"Err: {e}"
 
-if __name__ == "__main__":
+def main():
+    """Main entry point for the PyAutoControl MCP server."""
     mcp_server.run()
+
+if __name__ == "__main__":
+    main()
 
