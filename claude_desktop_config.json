@@ -1,16 +1,35 @@
 {
   "mcpServers": {
-    "PyAutoControl": {
-      "command": "d:/pyauto/.venv/Scripts/python.exe",
+    "echo": {
+      "command": "python",
       "args": [
-        "D:/pyauto/main.py"
+        "-m",
+        "echo_mcp"
       ]
     }
   },
+  "coworkUserFilesPath": "C:\\Users\\hmahi\\Claude",
   "preferences": {
     "coworkScheduledTasksEnabled": false,
     "ccdScheduledTasksEnabled": false,
+    "sidebarMode": "chat",
+    "bypassPermissionsGateByAccount": {
+      "6a6ed167-8341-4949-a587-8ea6ee539479": false
+    },
     "coworkWebSearchEnabled": true,
-    "floatingAtollActive": true
+    "coworkModelAutoFallbackByAccount": {
+      "6a6ed167-8341-4949-a587-8ea6ee539479": true
+    },
+    "remoteToolsDeviceName": "bala",
+    "epitaxyPrefs": {
+      "starred-local-code-sessions": [],
+      "starred-cowork-spaces": [],
+      "starred-session-groups": [],
+      "dframe-local-slice": {
+        "pinnedOrder": [],
+        "customGroupAssignments": {},
+        "customGroupOrder": {}
+      }
+    }
   }
 }

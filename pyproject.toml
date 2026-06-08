@@ -4,18 +4,18 @@ build-backend = "hatchling.build"
 
 [project]
 name = "echo-mcp"
-version = "0.1.0"
+version = "0.1.1"
 description = "A powerful MCP server for local system automation and browser control"
 readme = "README.md"
 authors = [
-    { name = "PyAuto Author", email = "author@example.com" }
+    { name = "Mahibala H", email = "hmahibala@gmail.com" }
 ]
 classifiers = [
-    "Programming Language :: Python :: 3",
+    "Programming Language :: Python 3.11",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
-requires-python = ">=3.12"
+requires-python = ">=3.11"
 dependencies = [
     "mcp[cli]",
     "pyautogui",
