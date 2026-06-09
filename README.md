@@ -1,5 +1,12 @@
 # Echo MCP Server
 
+[![PyPI Version](https://img.shields.io/pypi/v/echo-mcp?style=flat-square&logo=pypi&logoColor=white&label=PyPI)](https://pypi.org/project/echo-mcp/)
+[![Python Version](https://img.shields.io/pypi/pyversions/echo-mcp?style=flat-square&logo=python&logoColor=white)](https://pypi.org/project/echo-mcp/)
+[![License](https://img.shields.io/pypi/l/echo-mcp?style=flat-square&label=License)](https://pypi.org/project/echo-mcp/)
+[![PyPI Downloads](https://static.pepy.tech/personalized-badge/echo-mcp?period=total&units=ABBREVIATION&left_color=BLACK&right_color=GREEN&left_text=downloads)](https://pepy.tech/projects/echo-mcp)
+[![GitHub](https://img.shields.io/badge/GitHub-repo-blue?style=flat-square&logo=github)](https://github.com/bala-2305/echo-mcp)
+[![MCP](https://img.shields.io/badge/MCP-compatible-brightgreen?style=flat-square)](https://modelcontextprotocol.io)
+
 A Model Context Protocol (MCP) server that provides autonomous GUI automation capabilities to LLM clients (like Claude Desktop). This tool allows an AI to interact directly with your computer's screen, mouse, keyboard, and browser.
 
 ## Features
@@ -24,19 +31,14 @@ You can install the package directly from PyPI (https://pypi.org/project/echo-mc
 pip install echo-mcp
 ```
 
-### 3. Claude Desktop Configuration
-To use this with Claude Desktop, the easiest way is to use `uvx` to run it automatically. Add the following to your `claude_desktop_config.json`:
-
-```json
-{
-  "mcpServers": {
-    "Echo": {
-      "command": "uvx",
-      "args": ["echo-mcp"]
-    }
-  }
-}
+### 3.Configuration
+You can Configure your AI apps/IDE to make use of the mcp server by running the following command
+```powershell
+python -m echo_mcp.config
 ```
+
+This will launch a CLI based setup wizard which help you to configure your AI apps/IDE to use the mcp server.
+You will need to restart the app/IDE for the changes to take effect.
 
 ## Available Tools
 

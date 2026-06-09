@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "EchoMCP": {
+      "command": "my_uvx",
+      "args": [
+        "echo-mcp"
+      ]
+    }
+  }
+}

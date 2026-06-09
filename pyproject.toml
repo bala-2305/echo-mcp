@@ -4,20 +4,21 @@ build-backend = "hatchling.build"
 
 [project]
 name = "echo-mcp"
-version = "0.1.1"
+version = "0.1.6"
 description = "A powerful MCP server for local system automation and browser control"
 readme = "README.md"
 authors = [
     { name = "Mahibala H", email = "hmahibala@gmail.com" }
 ]
 classifiers = [
-    "Programming Language :: Python 3.11",
+    "Programming Language :: Python :: 3.11",
     "License :: OSI Approved :: MIT License",
     "Operating System :: OS Independent",
 ]
 requires-python = ">=3.11"
 dependencies = [
     "mcp[cli]",
+    "uv",
     "pyautogui",
     "opencv-python",
     "pillow",
@@ -32,6 +33,10 @@ dependencies = [
 
 [project.scripts]
 echo-mcp = "echo_mcp.main:main"
+echo-mcp-setup = "echo_mcp.config:main"
 
 [project.urls]
-Homepage = "https://github.com/bala-2305/pyauto"
+Homepage = "https://github.com/bala-2305/echo-mcp"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/echo_mcp"]

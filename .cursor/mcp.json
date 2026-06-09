@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "EchoMCP": {
+      "command": "C:\\Users\\hmahi\\.local\\bin\\uvx.exe",
+      "args": [
+        "echo-mcp"
+      ]
+    }
+  }
+}
