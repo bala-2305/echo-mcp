@@ -196,7 +196,7 @@ def get_system_health() -> str:
 def launch_application(app_name_or_path: str) -> str:
     """Launch app/path."""
     try:
-        subprocess.Popen(app_name_or_path, shell=True)
+        subprocess.Popen([app_name_or_path], shell=False)  # SECURITY: Fixed RCE - no shell=True with user input
         return f"Launched {app_name_or_path}"
     except Exception as e:
         return f"Err: {e}"
@@ -622,4 +622,5 @@ def main():
 
 if __name__ == "__main__":
     main()
+
 
