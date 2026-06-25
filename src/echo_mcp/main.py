@@ -21,6 +21,9 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 import pandas as pd
 import json
+from ctypes import cast, POINTER
+from comtypes import CLSCTX_ALL
+from pycaw.pycaw import AudioUtilities, IAudioEndpointVolume
 
 mcp_server = fastmcp.FastMCP("PyAutoControl")
 
@@ -67,19 +70,14 @@ def find_text_on_screen(text: str) -> str:
 
 @mcp_server.tool()
 def set_volume(level: int) -> str:
-    """Set vol 0-100 (Windows via PowerShell)."""
+    """Set vol 0-100 (using volume-control package)."""
     try:
         level = max(0, min(100, level))  # Clamp 0-100
-        ps_script = f"""
-[Windows.Media.Devices.MediaDevice, Windows.Media.Devices.MediaDevice, ContentType = WindowsRuntime] > $null
-[Windows.Media.Devices.MediaDevice]::GetDefaultAudioPlaybackDevice().Volume = {level / 100.0}
-"""
-        result = subprocess.run(
-            ["powershell", "-NoProfile", "-Command", ps_script],
-            capture_output=True,
-            text=True
-        )
-        return "OK" if result.returncode == 0 else f"Err: {result.stderr}"
+        import pyvolume
+        pyvolume.custom(percent=level)
+        return "OK"
+    except ImportError:
+        return "Err: volume-control package is not installed. Please install it using 'pip install volume-control'"
     except Exception as e:
         return f"Err: {e}"
 
@@ -677,5 +675,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-

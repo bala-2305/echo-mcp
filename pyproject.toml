@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "echo-mcp"
-version = "0.1.6"
+version = "0.1.7"
 description = "A powerful MCP server for local system automation and browser control"
 readme = "README.md"
 authors = [
@@ -32,6 +32,8 @@ dependencies = [
     "pandas",
     "openpyxl",
     "beautifulsoup4",
+    "pycaw",
+    "pyvolume",
 ]
 
 [project.scripts]
