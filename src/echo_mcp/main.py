@@ -19,6 +19,8 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.keys import Keys
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
+import pandas as pd
+import json
 
 mcp_server = fastmcp.FastMCP("PyAutoControl")
 
@@ -613,6 +615,59 @@ def browser_scroll(direction: str = "down", amount: int = 3) -> str:
         else:
             browser.execute_script(f"window.scrollBy(0, {-amount * 100});")
         return f"Scrolled {direction}"
+    except Exception as e:
+        return f"Err: {e}"
+
+@mcp_server.tool()
+def web_scrape_to_file(url: str, selector: str, output_path: str, by: str = "css") -> str:
+    """Scrape elements by selector and save to file (.xlsx, .csv, .json, .txt)."""
+    try:
+        browser = get_browser()
+        browser.get(url)
+        by_map = {
+            "css": By.CSS_SELECTOR,
+            "xpath": By.XPATH,
+            "id": By.ID,
+            "class": By.CLASS_NAME,
+            "name": By.NAME
+        }
+        loc_by = by_map.get(by, By.CSS_SELECTOR)
+        
+        # Wait briefly for elements
+        try:
+            WebDriverWait(browser, 10).until(
+                EC.presence_of_element_located((loc_by, selector))
+            )
+        except:
+            pass
+
+        elements = browser.find_elements(loc_by, selector)
+        if not elements:
+            return "No elements found matching the selector."
+            
+        data = []
+        for el in elements:
+            text = el.text.strip()
+            if text:
+                data.append({"text": text, "tag": el.tag_name})
+                
+        if not data:
+            return "Elements found, but no text extracted."
+            
+        df = pd.DataFrame(data)
+        ext = os.path.splitext(output_path)[1].lower()
+        if ext == '.xlsx':
+            df.to_excel(output_path, index=False)
+        elif ext == '.csv':
+            df.to_csv(output_path, index=False)
+        elif ext == '.json':
+            df.to_json(output_path, orient='records', indent=4)
+        else:
+            with open(output_path, 'w', encoding='utf-8') as f:
+                for item in data:
+                    f.write(item['text'] + "\n")
+                    
+        return f"Saved {len(data)} items to {output_path}"
     except Exception as e:
         return f"Err: {e}"
 

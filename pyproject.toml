@@ -29,6 +29,9 @@ dependencies = [
     "webdriver-manager",
     "psutil",
     "pyperclip",
+    "pandas",
+    "openpyxl",
+    "beautifulsoup4",
 ]
 
 [project.scripts]
